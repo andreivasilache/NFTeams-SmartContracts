@@ -1,0 +1,22 @@
+{
+  "name": "NFTeams-SmartContracts",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/andreivasilache/NFTeams-SmartContracts.git",
+  "author": "Andrei VASILACHE <andrei.vasilache@assist.ro>",
+  "license": "MIT",
+  "scripts": {
+    "compile": "yarn hardhat compile",
+    "deploy": "yarn hardhat run scripts/deploy.js --network ropsten"
+  },
+  "devDependencies": {
+    "@nomiclabs/hardhat-ethers": "^2.0.2",
+    "@nomiclabs/hardhat-waffle": "^2.0.1",
+    "ethers": "^5.5.1",
+    "hardhat": "^2.6.7"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "^4.3.2",
+    "@openzeppelin/hardhat-upgrades": "^1.11.0"
+  }
+}
