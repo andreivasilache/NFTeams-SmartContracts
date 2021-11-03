@@ -17,6 +17,8 @@
   },
   "dependencies": {
     "@openzeppelin/contracts": "^4.3.2",
-    "@openzeppelin/hardhat-upgrades": "^1.11.0"
+    "@openzeppelin/hardhat-upgrades": "^1.11.0",
+    "firebase": "^9.2.0",
+    "firebase-admin": "^10.0.0"
   }
 }
