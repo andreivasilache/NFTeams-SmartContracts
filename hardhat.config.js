@@ -10,6 +10,8 @@ module.exports = {
     ropsten: {
       url: INFURA_KEY, //Infura url with projectId
       accounts: [DEPLOY_WALLET_SECRET], // add the account that will deploy the contract (private key)
+      gas: 2100000,
+      gasPrice: 8000000000,
     },
   },
 };
