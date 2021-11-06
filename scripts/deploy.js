@@ -3,7 +3,6 @@ const admin = require("firebase-admin");
 const { getFirestore } = require("firebase-admin/firestore");
 
 const hre = require("hardhat");
-const NFTProviderAbi = require("../artifacts/contracts/NFTProvider.sol/NFTProvider.json");
 
 const serviceAccount = require("../firebase_secret.json");
 
@@ -17,25 +16,30 @@ const smartContractsRef = db.collection("smart-contracts");
 async function main() {
   const [deployer] = await ethers.getSigners(); //get the account to deploy the contract
 
+  const contracts = ["NFTProvider", "MarketCoins"];
+
+  console.log(`Deploying contract(s): ${contracts.toString()}`);
   console.log("Deploying contracts with the account:", deployer.address);
+  for (const contract of contracts) {
+    const contractArtifact = await hre.ethers.getContractFactory(contract); // Getting the Contract
 
-  const NFTProviderContract = await hre.ethers.getContractFactory(
-    "NFTProvider"
-  ); // Getting the Contract
-  const NFTProvider = await NFTProviderContract.deploy(); //deploying the contract
+    const deployInstance = await contractArtifact.deploy(); //deploying the contract
 
-  await NFTProvider.deployed(); // waiting for the contract to be deployed
+    await deployInstance.deployed(); // waiting for the contract to be deployed
 
-  console.log("NFTProvider deployed to:", NFTProvider.address); // Returning the contract address
+    console.log(`${contract} deployed to:${deployInstance.address}`);
 
-  try {
-    await smartContractsRef.doc("NFTProvider").set({
-      abi: JSON.stringify(NFTProviderAbi.abi),
-      address: NFTProvider.address,
-    });
-    console.log("Smart contract saved to firebase.");
-  } catch (err) {
-    console.log("Error deploying smart contract to firebase", err);
+    try {
+      const ContractABI = require(`../artifacts/contracts/${contract}.sol/${contract}.json`);
+
+      await smartContractsRef.doc(`${contract}`).set({
+        abi: JSON.stringify(ContractABI.abi),
+        address: deployInstance.address,
+      });
+      console.log(`${contract} contract metadata saved to firebase.`);
+    } catch (err) {
+      console.log("Error deploying smart contract to firebase", err);
+    }
   }
 }
 
