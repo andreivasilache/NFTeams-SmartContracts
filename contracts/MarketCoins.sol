@@ -5,8 +5,13 @@ contract MarketCoins{
     string public symbol = "NFMS";
     mapping(address => uint) balances;
 
-    function sendCointsToAdress(address to, uint amount) external {
+    function sendCoinsToAdress(address to, uint amount) external {
         balances[to] += amount;
+    }
+    function sendCoinsToAdresses(address[] memory to, uint amount) external {
+        for(uint index = 0; index<to.length; index++){
+            this.sendCoinsToAdress(to[index], amount);
+        }
     }
 
     function balanceOf(address account) external view returns (uint) {  

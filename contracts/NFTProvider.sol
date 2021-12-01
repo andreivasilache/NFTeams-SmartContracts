@@ -13,7 +13,7 @@ contract NFTProvider is ERC721URIStorage, ERC721Enumerable  {
     using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
-    constructor() ERC721("GameItem", "ITM") {}
+    constructor() ERC721("ASSIST NFT", "GAME-NFT") {}
 
     function awardNFT(address wallet, string memory tokenURI) public returns (uint256) {
         _tokenIds.increment();
@@ -23,6 +23,12 @@ contract NFTProvider is ERC721URIStorage, ERC721Enumerable  {
         _setTokenURI(newItemId, tokenURI);
 
         return newItemId;
+    }
+
+     function awardMultipleWallets(address[] memory  wallets, string memory tokenURI) public returns (uint256) {
+          for(uint index = 0; index<wallets.length; index++){
+            this.awardNFT(wallets[index], tokenURI);
+        }
     }
 
     function getAllTokensOfOwner(address _owner) public view returns (string[] memory) {
