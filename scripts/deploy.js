@@ -16,10 +16,11 @@ const smartContractsRef = db.collection("smart-contracts");
 async function main() {
   const [deployer] = await ethers.getSigners(); //get the account to deploy the contract
 
-  const contracts = ["NFTProvider", "MarketCoins"];
+  const contracts = ["MarketCoins"];
 
   console.log(`Deploying contract(s): ${contracts.toString()}`);
   console.log("Deploying contracts with the account:", deployer.address);
+  console.log("Account balance:", (await deployer.getBalance()).toString());
   for (const contract of contracts) {
     const contractArtifact = await hre.ethers.getContractFactory(contract); // Getting the Contract
 
@@ -32,7 +33,7 @@ async function main() {
     try {
       const ContractABI = require(`../artifacts/contracts/${contract}.sol/${contract}.json`);
 
-      await smartContractsRef.doc(`${contract}`).set({
+      await smartContractsRef.doc(`${contract}_matic`).set({
         abi: JSON.stringify(ContractABI.abi),
         address: deployInstance.address,
       });

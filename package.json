@@ -7,7 +7,7 @@
   "license": "MIT",
   "scripts": {
     "compile": "yarn hardhat compile",
-    "deploy": "yarn hardhat run scripts/deploy.js --network ropsten"
+    "deploy": "yarn hardhat run scripts/deploy.js --network matic"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "^2.0.2",

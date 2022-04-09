@@ -7,10 +7,9 @@ const { INFURA_KEY, DEPLOY_WALLET_SECRET } = require("./secret");
 module.exports = {
   solidity: "0.8.0",
   networks: {
-    ropsten: {
+    matic: {
       url: INFURA_KEY, //Infura url with projectId
       accounts: [DEPLOY_WALLET_SECRET], // add the account that will deploy the contract (private key)
-      gas: 2100000,
       gasPrice: 8000000000,
     },
   },
